@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
@@ -15,6 +17,11 @@ Route::get('/ping', function() {
     return response()->json([
         'message' => 'pong'
     ]);
+});
+
+Route::prefix('/auth')->group( function () {
+    Route::post('/signin', [AuthenticatedSessionController::class, 'store']);
+    Route::post('/signup', [RegisteredUserController::class, 'store']);
 });
 
 Route::apiResource('/schools', SchoolController::class);
