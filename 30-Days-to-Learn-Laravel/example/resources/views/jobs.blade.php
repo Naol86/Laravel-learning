@@ -2,7 +2,7 @@
   <x-slot:heading>
     Jobs Page
   </x-slot:heading>
-  <div class="space-y-2">
+  <di class="space-y-2">
 
     @foreach ($jobs as $job)
     <a href="/jobs/{{ $job['id'] }}" class="block border-2 rounded-md p-5">
@@ -18,5 +18,8 @@
       </strong>
     </a>
     @endforeach
-  </div>
+    <div>
+      {{ $jobs->links() }}
+    </div>
+  </di>
 </x-layout>
