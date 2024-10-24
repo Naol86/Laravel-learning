@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
 
-
-
 Route::get('/', function () {
     return view('home');
 });
@@ -21,6 +19,12 @@ Route::get('/jobs/create', function () {
 });
 
 Route::post('/jobs', function () {
+
+    request()->validate([
+        'title' => ['required', 'min:2'],
+        'salary' => 'required',
+    ]);
+
     $job = Job::create([
         'title' => request('title'),
         'salary' => request('salary'),
@@ -31,8 +35,9 @@ Route::post('/jobs', function () {
 });
 
 Route::get('/jobs/{id}', function (string $id) {
+    $job = Job::find($id);
     return view('jobs.show', [
-        'job' => Job::find($id),
+        'job' => $job,
     ]);
 });
 

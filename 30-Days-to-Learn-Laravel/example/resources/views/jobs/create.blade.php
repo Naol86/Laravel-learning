@@ -18,8 +18,13 @@
 
                 <input type="text" name="title" id="title"
                   class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 outline-none pl-3"
-                  placeholder="product manager">
+                  placeholder="product manager" required />
               </div>
+              <p class="mt-1 text-red-600 text-xs font-semibold">
+                @error('title')
+                {{ $message }}
+                @enderror
+              </p>
             </div>
           </div>
 
@@ -31,11 +36,26 @@
 
                 <input type="text" name="salary" id="salary"
                   class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 outline-none pl-3"
-                  placeholder="$50,000 per year">
+                  placeholder="$50,000 per year" required />
               </div>
+              <p class="mt-1 text-red-600 text-xs font-semibold">
+                @error('salary')
+                {{ $message }}
+                @enderror
+              </p>
             </div>
           </div>
 
+          {{-- @if ($errors->any()) 
+            <ul>
+              @foreach ($errors->all() as $error)
+                <li>
+                  {{ $error }}
+                </li>
+              @endforeach
+            </ul>
+            
+          @endif --}}
 
 
         </div>
