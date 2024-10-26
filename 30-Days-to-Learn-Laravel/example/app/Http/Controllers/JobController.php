@@ -21,7 +21,7 @@ class JobController extends Controller
         return view('jobs.create');
     }
 
-    public function store($request)
+    public function store(Request $request)
     {
         request()->validate([
             'title' => ['required', 'min:2'],
@@ -31,7 +31,7 @@ class JobController extends Controller
         $job = Job::create([
             'title' => $request->title,
             'salary' => $request->salary,
-            'employer' => 1,
+            'employer_id' => 1,
         ]);
 
         return redirect('/jobs');
