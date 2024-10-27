@@ -4,25 +4,29 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\SessionController;
+use App\Mail\JobPosted;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
-// Route::resource('/jobs', JobController::class);
 
 Route::get('/jobs', [JobController::class, 'index']);
-Route::get('/jobs/{job}', [JobController::class, 'show']);
 
-Route::middleware('auth')->group(function () {
+// Route::get('/jobs/create', function () {
+//   dd('asdfas');
+// });
+Route::middleware('auth')->prefix('/jobs')->group(function () {
 
-  Route::get('/jobs/create', [JobController::class, 'create']);
-  Route::post('/jobs', [JobController::class, 'store']);
+  Route::get('/create', [JobController::class, 'create'])->name('jobs.create');
+  Route::post('/', [JobController::class, 'store']);
   Route::middleware('can:edit,job')->group(function () {
-    Route::get('/jobs/{job}/edit', [JobController::class, 'edit']);
-    Route::patch('/jobs/{job}', [JobController::class, 'update']);
-    Route::delete('/jobs/{job}', [JobController::class, 'destroy']);
+    Route::get('/{job}/edit', [JobController::class, 'edit'])->name('jobs.edit');
+    Route::patch('/{job}', [JobController::class, 'update']);
+    Route::delete('/{job}', [JobController::class, 'destroy']);
   });
 });
 
+Route::get('/jobs/{job}', [JobController::class, 'show']);
 
 
 
